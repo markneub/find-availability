@@ -15,12 +15,10 @@ var {
   searchParams
 } = require('./src/load-input.js')
 
-function find_available_work_hours(user_id, from, to) {
+function find_available_work_hours(user_id, from, to, overrides) {
   let output = ''
   let fromDate = moment(from, DATE_FORMAT)
   let toDate = moment(to, DATE_FORMAT)
-
-  let overrides = getEmployeeHourOverrides(user_id)
 
   // loop over each date in the requested range
   let currDate = fromDate
@@ -51,4 +49,9 @@ function find_available_work_hours(user_id, from, to) {
 }
 
 // run the query and output results to console
-console.log( find_available_work_hours(searchParams[0], searchParams[1], searchParams[2]) )
+let user_id = searchParams[0]
+let from = searchParams[1]
+let to = searchParams[2]
+let overrides = getEmployeeHourOverrides(user_id)
+
+console.log( find_available_work_hours(user_id, from, to, overrides) )
