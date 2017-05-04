@@ -11,7 +11,8 @@ var {
 var {
   companyWorkHours,
   companyHolidays,
-  employeeHourOverrides
+  employeeHourOverrides,
+  searchParams
 } = require('./load-input.js')
 
 function find_available_work_hours(user_id, from, to) {
@@ -49,4 +50,5 @@ function find_available_work_hours(user_id, from, to) {
   return output
 }
 
-console.log( find_available_work_hours(1, '11/16/2015', '01/15/2016') )
+// run the query and output results to console
+console.log( find_available_work_hours(searchParams[0], searchParams[1], searchParams[2]) )

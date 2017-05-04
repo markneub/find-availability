@@ -17,3 +17,6 @@ Christmas,"12/25/2015"
 
 # anne's availability
 2,"03/16/2016","06/16/2016",[0,8,8,8,8,0,0]
+
+# find availability for user and dates
+1,"12/16/2015","01/15/2016"

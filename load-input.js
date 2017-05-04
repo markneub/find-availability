@@ -3,7 +3,8 @@ var fs = require('fs')
 var companyWorkHours = [],
     companyHolidays = [],
     employees = [],
-    employeeHourOverrides = [];
+    employeeHourOverrides = [],
+    searchParams = [];
 
 module.exports = (() => {
   let inputData = fs.readFileSync('./input.txt', 'utf8')
@@ -41,12 +42,19 @@ module.exports = (() => {
         employeeHourOverrides.push(parsedLine)
       }
     } catch (e) {}
+
+    // find availability for user and dates
+    if (commaSplit.length === 3) {
+      searchParams = commaSplit
+      return
+    }
   })
 
   return {
     companyWorkHours,
     companyHolidays,
     employees,
-    employeeHourOverrides
+    employeeHourOverrides,
+    searchParams
   }
 })()
