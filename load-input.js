@@ -13,8 +13,9 @@ module.exports = (() => {
     // comment or whitespace line
     if (line.indexOf('#') === 0 || line.trim().length === 0) return
 
+    let commaSplit = line.split(',') // used to differentiate between input line types
+
     // company work hours
-    let commaSplit = line.split(',')
     if (commaSplit.length === 7) {
       companyWorkHours = commaSplit
       return
@@ -35,19 +36,20 @@ module.exports = (() => {
       return
     }
 
+    // find availability for user and dates
+    if (commaSplit.length === 3) {
+      searchParams = commaSplit
+      return
+    }
+
     // employee availability override
+    // comma split technique won't work because of nested array, so parse as JSON
     try {
       let parsedLine = JSON.parse(`[${line}]`)
       if (parsedLine.length === 4) {
         employeeHourOverrides.push(parsedLine)
       }
     } catch (e) {}
-
-    // find availability for user and dates
-    if (commaSplit.length === 3) {
-      searchParams = commaSplit
-      return
-    }
   })
 
   return {
