@@ -1,19 +1,17 @@
 var moment = require('moment')
 
 var {
-  companyWorkHours,
-  companyHolidays,
-  employeeHourOverrides
+  companyWorkHours
 } = require('./load-input.js')
 
 var {
   DATE_FORMAT
 } = require('./load-input.js')
 
-function getEmployeeHourOverrides(user_id) {
+function getEmployeeHourOverrides(user_id, allOverrides) {
   let overrides = []
-  employeeHourOverrides.forEach(override => {
-    if (override[0] === user_id) {
+  allOverrides.forEach(override => {
+    if (override[0] === parseInt(user_id, 10)) {
       overrides.push(override)
     }
   })
