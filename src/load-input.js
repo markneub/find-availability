@@ -52,7 +52,9 @@ module.exports = (() => {
       if (parsedLine.length === 4) {
         employeeHourOverrides.push(parsedLine)
       }
-    } catch (e) {}
+    } catch (e) {
+      throw new Error('There was an error parsing one of the employee overrides. Please check the formatting in the input file.')
+    }
   })
 
   // basic input sanity checks
@@ -100,6 +102,9 @@ module.exports = (() => {
   // validation functions
 
   function validateHours(hoursArray, hoursType) {
+    if (hoursArray.length !== 7) {
+      throw new Error(`A supplied ${hoursType} hours is not the required 7 elements long, one for each day of the week.`)
+    }
     hoursArray.forEach(day => {
       let parsedHours = parseInt(day, 10)
       if (parsedHours > 24 || parsedHours < 0 || isNaN(parsedHours)) {
