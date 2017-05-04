@@ -6,7 +6,7 @@ This program implements a solution for the requirements as specified for the [Fi
 
 ## Prerequisites
 
-find-availability has the following dependencies:
+find-availability has the following environment dependencies:
 - Node.js v6 or greater
 - npm (you should already have this if you have Node.js installed)
 
