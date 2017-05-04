@@ -27,7 +27,7 @@ node index.js
 [Moment.js](https://momentjs.com/) is installed as a dependency during `npm install`
 
 - JavaScript's built-in date parsing and formatting abilities are limited and clunky to work with. Moment adds an easy to use and understand API for parsing, comparing, and formatting dates, as well as a simple interface for features that could be useful in the future, such as other date formats or timezone support.
-- As the program is run locally in Node.js, the concern of delivering unnecessary extra data over the wire is mitigated. If this were used in a web service, it would likely be used as an asynchronous service where only the request and response are transmitted over the network. If the whole program needed to be integrated into a client-side application, Moment's API provides a useful abstraction for what functions would need to be recreated to avoid downloading the whole library to a client.
+- As the program is run locally in Node.js, the concern of delivering unnecessary extra data over the wire is mitigated. If this were used in a web service, it would likely be used as an asynchronous service where only the request and response are transmitted over the network. If the whole program needed to be integrated into a client-side application, Moment's API provides a useful abstraction for what functions would need to be recreated to avoid downloading the whole library to a client, if file size were a concern.
 
 ### Input Validation
 
