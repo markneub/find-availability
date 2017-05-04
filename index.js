@@ -41,7 +41,7 @@ function find_available_work_hours(user_id, from, to, overrides) {
               getOverrideHours(user_id, currDate, overrides) // employee specific override
     }
 
-    output += `${formattedDate},${hours}\n`
+    output += `"${formattedDate}",${hours}\n`
     currDate.add(1, 'days')
   }
 
