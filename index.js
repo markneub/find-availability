@@ -5,7 +5,7 @@ var {
   DATE_FORMAT,
   getEmployeeHourOverrides,
   getOverrideHours
-} = require('./helpers.js')
+} = require('./src/helpers.js')
 
 // input data from file
 var {
@@ -13,7 +13,7 @@ var {
   companyHolidays,
   employeeHourOverrides,
   searchParams
-} = require('./load-input.js')
+} = require('./src/load-input.js')
 
 function find_available_work_hours(user_id, from, to) {
   let output = ''
