@@ -7,7 +7,7 @@ var {
   getOverrideHours
 } = require('./src/helpers.js')
 
-// input data from file
+// get data from input file
 var {
   companyWorkHours,
   companyHolidays,
