@@ -27,7 +27,7 @@ module.exports = (() => {
     if (commaSplit.length === 2) {
       // company holidays
       if (isNaN(parseInt(commaSplit[0], 10))) {
-        companyHolidays.push(commaSplit[1])
+        companyHolidays.push(commaSplit[1].slice(1, -1)) // slice off the quotes
         return
       }
 
@@ -57,23 +57,71 @@ module.exports = (() => {
 
   // basic input sanity checks
 
-  if (Array.isArray(companyWorkHours) && companyWorkHours.length === 7) {
-    companyWorkHours.forEach(day => {
-      let parsedHours = parseInt(day, 10)
-      if (parsedHours > 24 || parsedHours < 0 || isNaN(parsedHours)) {
-        throw new Error('At least of the supplied company workweek hours is not a number or is not between 0 and 24.')
-      }
-    })
+  if (companyWorkHours.length === 7) {
+    validateHours(companyWorkHours, 'At least one of the supplied company workweek hours is not a number or is not between 0 and 24.')
   } else {
-    throw new Error('There is an issue with the format of the supplied company work hours. Check the number of days.')
+    throw new Error('company work')
   }
 
-  if (Array.isArray(companyHolidays)) {
+  if (companyHolidays.length > 0) {
     companyHolidays.forEach(holiday => {
       if (!moment(holiday, DATE_FORMAT, true).isValid()) {
         throw new Error('One or more holidays are invalid dates.')
       }
     })
+  } // else there are no holidays, which is fine
+
+  if (employeeHourOverrides.length > 0) {
+    employeeHourOverrides.forEach(override => {
+      let startDate = override[1]
+      let endDate = override[2]
+      let hours = override[3]
+      validateHours(hours, 'employee override')
+      if (startDate && !moment(startDate, DATE_FORMAT, true).isValid()) {
+        throw new Error('Invalid start date for employee hour overrides.')
+      }
+      if (endDate && !moment(endDate, DATE_FORMAT, true).isValid()) {
+        throw new Error('Invalid end date for employee hour overrides.')
+      }
+      if (startDate && endDate && moment(startDate, DATE_FORMAT).isAfter(moment(endDate, DATE_FORMAT))) {
+        throw new Error('Start date for employee hour overrides must come before end date.')
+      }
+    })
+  } // else there are no employee hour overrides, which is fine
+
+  if (searchParams.length === 3) {
+    let startDate = searchParams[1]
+    let endDate = searchParams[2]
+    validateDateRange(startDate, endDate, 'search query')
+  } else {
+    throw new Error('No search query was detected in the input file, or the query has the wrong number of arguments.')
+  }
+
+  // validation functions
+
+  function validateHours(hoursArray, hoursType) {
+    hoursArray.forEach(day => {
+      let parsedHours = parseInt(day, 10)
+      if (parsedHours > 24 || parsedHours < 0 || isNaN(parsedHours)) {
+        throw new Error(`At least one of the supplied ${hoursType} hours is not a number or is not between 0 and 24.`)
+      }
+    })
+    return true
+  }
+
+  function validateDateRange(startDate, endDate, name) {
+    startDate = startDate.slice(1, -1) // slice off the quotes
+    endDate = endDate.slice(1, -1) // slice off the quotes
+    if (!moment(startDate, DATE_FORMAT, true).isValid()) {
+      throw new Error(`Invalid start date for ${name}.`)
+    }
+    if (!moment(endDate, DATE_FORMAT, true).isValid()) {
+      throw new Error(`Invalid end date for ${name}.`)
+    }
+    if (moment(startDate, DATE_FORMAT).isAfter(moment(endDate, DATE_FORMAT))) {
+      throw new Error(`Start date for ${name} must come before end date.`)
+    }
+    return true
   }
 
   return {
