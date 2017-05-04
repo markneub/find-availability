@@ -6,7 +6,9 @@ var {
   employeeHourOverrides
 } = require('./load-input.js')
 
-const DATE_FORMAT = 'MM/DD/YYYY'
+var {
+  DATE_FORMAT
+} = require('./load-input.js')
 
 function getEmployeeHourOverrides(user_id) {
   let overrides = []
@@ -52,7 +54,6 @@ function getOverrideHours(user_id, currDate, overrides) {
 }
 
 module.exports = {
-  DATE_FORMAT,
   getEmployeeHourOverrides,
   getOverrideHours
 }

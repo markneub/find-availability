@@ -1,14 +1,14 @@
 var moment = require('moment')
 
-// constants and helper functions
+// helper functions
 var {
-  DATE_FORMAT,
   getEmployeeHourOverrides,
   getOverrideHours
 } = require('./src/helpers.js')
 
 // get data from input file
 var {
+  DATE_FORMAT,
   companyWorkHours,
   companyHolidays,
   employeeHourOverrides,
