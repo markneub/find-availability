@@ -103,7 +103,7 @@ module.exports = (() => {
     hoursArray.forEach(day => {
       let parsedHours = parseInt(day, 10)
       if (parsedHours > 24 || parsedHours < 0 || isNaN(parsedHours)) {
-        throw new Error(`At least one of the supplied ${hoursType} hours is not a number or is not between 0 and 24.`)
+        throw new Error(`At least one of the supplied ${hoursType} hours is not a number or is not in the range 0 to 24.`)
       }
     })
     return true
