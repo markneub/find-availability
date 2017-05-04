@@ -58,9 +58,9 @@ module.exports = (() => {
   // basic input sanity checks
 
   if (companyWorkHours.length === 7) {
-    validateHours(companyWorkHours, 'At least one of the supplied company workweek hours is not a number or is not between 0 and 24.')
+    validateHours(companyWorkHours, 'company work')
   } else {
-    throw new Error('company work')
+    throw new Error('The supplied company work hours line is not formatted correctly. Is there a number other than 7 days of work hours provided?')
   }
 
   if (companyHolidays.length > 0) {
