@@ -2,7 +2,7 @@ var moment = require('moment')
 
 var {
   companyWorkHours,
-  employees,
+  companyHolidays,
   employeeHourOverrides
 } = require('./load-input.js')
 

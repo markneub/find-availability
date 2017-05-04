@@ -1,6 +1,7 @@
 var fs = require('fs')
 
 var companyWorkHours = [],
+    companyHolidays = [],
     employees = [],
     employeeHourOverrides = [];
 
@@ -18,8 +19,14 @@ module.exports = (() => {
       return
     }
 
-    // employees
     if (commaSplit.length === 2) {
+      // company holidays
+      if (isNaN(parseInt(commaSplit[0], 10))) {
+        companyHolidays.push(commaSplit[1])
+        return
+      }
+
+      // employees (currently unused)
       employees.push({
         'id': commaSplit[0],
         'name': commaSplit[1]
@@ -38,6 +45,7 @@ module.exports = (() => {
 
   return {
     companyWorkHours,
+    companyHolidays,
     employees,
     employeeHourOverrides
   }

@@ -3,6 +3,10 @@
 # company work hours
 0,8,8,8,8,8,0
 
+# company holidays
+Thanksgiving,"11/26/2015"
+Christmas,"12/25/2015"
+
 # employees
 1,Mark Virtue
 2,Anne Prins
