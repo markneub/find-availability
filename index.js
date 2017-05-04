@@ -20,6 +20,8 @@ function find_available_work_hours(user_id, from, to, overrides) {
   let fromDate = moment(from, DATE_FORMAT)
   let toDate = moment(to, DATE_FORMAT)
 
+  let userOverrides = getEmployeeHourOverrides(user_id, overrides)
+
   // loop over each date in the requested range
   let currDate = fromDate
   while (currDate.isSameOrBefore(toDate)) {
@@ -36,9 +38,9 @@ function find_available_work_hours(user_id, from, to, overrides) {
     })
 
     if (!isHoliday) {
-      hours = overrides.length == 0 ?
+      hours = userOverrides.length == 0 ?
               companyWorkHours[currDate.day()] : // no custom overrides
-              getOverrideHours(user_id, currDate, overrides) // employee specific override
+              getOverrideHours(user_id, currDate, userOverrides) // employee specific override
     }
 
     output += `"${formattedDate}",${hours}\n`
@@ -52,6 +54,6 @@ function find_available_work_hours(user_id, from, to, overrides) {
 let user_id = searchParams[0]
 let from = searchParams[1]
 let to = searchParams[2]
-let overrides = getEmployeeHourOverrides(user_id)
+let overrides = employeeHourOverrides
 
 console.log( find_available_work_hours(user_id, from, to, overrides) )
